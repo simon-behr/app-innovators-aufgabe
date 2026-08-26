@@ -1,6 +1,5 @@
 import type { Product } from '#shared/schemas/Product'
 import { CreateProductSchema } from '#shared/schemas/Product'
-import { addProduct } from '#server/utils/productStorage.ts'
 
 export default defineEventHandler(async (event): Promise<Product> => {
   const { data, success, error } = CreateProductSchema.safeParse(await readBody(event))

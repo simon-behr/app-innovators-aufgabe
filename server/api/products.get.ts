@@ -1,7 +1,5 @@
 import type { PageOfProduct } from '#shared/schemas/PageOfProduct'
-import { getAllProducts } from '#server/utils/productStorage.ts'
 import { ProductQuerySchema } from '#shared/schemas/ProductQuery'
-import { getAvailabilityStatus } from '#shared/utils/availability'
 
 export default defineEventHandler((event): PageOfProduct => {
   const { data: query, success, error } = ProductQuerySchema.safeParse(getQuery(event))

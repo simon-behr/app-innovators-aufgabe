@@ -1,5 +1,3 @@
-import { getTypedKeys } from '#shared/utils/getTypedKeys.ts'
-
 // single source of truth
 export const CATEGORY_LABELS = {
   electronics: 'Elektronik',

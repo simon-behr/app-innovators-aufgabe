@@ -7,6 +7,7 @@
     "dev": "nuxt dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "test": "vitest run",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -23,6 +24,9 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^10.6.0",
-    "typescript": "^6.0.3"
+    "@nuxt/test-utils": "^4.1.0",
+    "@vue/test-utils": "^2.4.11",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.11"
   }
 }
