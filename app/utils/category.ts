@@ -2,7 +2,6 @@ import type { Category } from '#shared/schemas/Product'
 import type { BadgeProps } from '@nuxt/ui'
 import { CATEGORY_LABELS } from '#shared/data/category'
 
-// Farbe ist ein reines UI-Konzept und bleibt getrennt von den (shared) Labels
 const CATEGORY_COLOR = {
   electronics: 'info',
   books: 'primary',

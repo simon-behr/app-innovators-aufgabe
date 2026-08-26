@@ -54,11 +54,20 @@ function onSelectProduct(product: Product) {
 
 <template>
   <UContainer class="py-8">
-    <UPageHeader
-      title="Produktkatalog"
-      description="Übersicht über alle Produkte im Lager."
-      :links="[{ label: 'Neues Produkt anlegen', icon: 'i-lucide-plus', onClick: () => createModalOpen = true }]"
-    />
+    <UPageHeader description="Übersicht über alle Produkte im Lager.">
+      <template #headline>
+        <div class="flex w-full items-center justify-between">
+          <h1 class="text-default text-3xl">
+            Produkt <span class="text-primary">Katalog</span>
+          </h1>
+          <UButton
+            label="Neues Produkt anlegen"
+            icon="i-lucide-plus"
+            @click="createModalOpen = true"
+          />
+        </div>
+      </template>
+    </UPageHeader>
 
     <div class="my-4 flex flex-wrap items-end gap-2">
       <UFormField label="Suche">

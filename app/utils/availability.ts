@@ -2,7 +2,6 @@ import type { BadgeProps } from '@nuxt/ui'
 import type { Availability } from '#shared/schemas/ProductQuery'
 import { AVAILABILITY_LABELS } from '#shared/data/availability'
 
-// Farbe ist ein reines UI-Konzept und bleibt getrennt von den (shared) Labels
 const AVAILABILITY_COLOR = {
   all: 'neutral',
   inStock: 'success',

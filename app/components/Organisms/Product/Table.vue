@@ -9,31 +9,6 @@ const props = defineProps<{ products: Product[], pageable: ApiPageable | null, p
 const activePageIndex = defineModel<number>('activePageIndex', { required: true })
 const emit = defineEmits<{ select: [product: Product], resetFilter: [], newProduct: [] }>()
 
-const expandedDescriptionIds = reactive(new Set<string>())
-const truncatedDescriptionIds = reactive(new Set<string>())
-
-function toggleDescription(productId: string) {
-  if (expandedDescriptionIds.has(productId)) expandedDescriptionIds.delete(productId)
-  else expandedDescriptionIds.add(productId)
-}
-
-// Only relevant while collapsed (truncate) — expanded text wraps, so scrollWidth stops
-// reflecting whether it would overflow, and we don't want to lose the "was truncated" flag then
-function checkDescriptionTruncation(productId: string, el: Element | null) {
-  if (!(el instanceof HTMLElement) || expandedDescriptionIds.has(productId)) return
-  if (el.scrollWidth > el.clientWidth) truncatedDescriptionIds.add(productId)
-  else truncatedDescriptionIds.delete(productId)
-}
-
-// Auto-expand descriptions that match the current search so the hit is visible
-watch([() => props.searchTerm, () => props.products], ([term, products]) => {
-  if (!term) return
-  const q = term.toLowerCase()
-  for (const product of products) {
-    if (product.description?.toLowerCase().includes(q)) expandedDescriptionIds.add(product.id)
-  }
-}, { immediate: true })
-
 const columns: TableColumn<Product>[] = [
   {
     // Rendering fully happens via the #name-cell slot
@@ -97,20 +72,16 @@ function handleSelect(_event: Event, row: TableRow<Product>) {
     >
       <template #name-cell="{ row }">
         <div class="flex flex-col gap-2 min-w-0">
+          <!-- v-html to highlight the search term for more understandable search behavior
+          (name, description and tags are searched at once) -->
           <span
             class="font-bold"
             v-html="highlightSearchTerm(row.original.name, searchTerm)"
           />
-          <p
+          <MoleculesProductDescriptionCell
             v-if="row.original.description"
-            :ref="(el) => checkDescriptionTruncation(row.original.id, el as Element | null)"
-            class="text-sm text-muted"
-            :class="[
-              expandedDescriptionIds.has(row.original.id) ? 'whitespace-normal' : 'truncate',
-              truncatedDescriptionIds.has(row.original.id) ? 'cursor-pointer hover:text-default hover:underline decoration-dotted underline-offset-2' : '',
-            ]"
-            @click.stop="toggleDescription(row.original.id)"
-            v-html="highlightSearchTerm(row.original.description, searchTerm)"
+            :description="row.original.description"
+            :search-term="searchTerm"
           />
         </div>
       </template>

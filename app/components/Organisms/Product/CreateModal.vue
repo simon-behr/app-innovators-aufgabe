@@ -8,6 +8,16 @@ const toast = useToast()
 const open = defineModel<boolean>('open', { required: true })
 const emit = defineEmits<{ created: [] }>()
 
+const state = reactive(createInitialState())
+const view = ref<'form' | 'confirm-discard'>('form')
+const submitting = ref(false)
+const formRef = useTemplateRef('form')
+
+const isValid = computed(() => CreateProductSchema.safeParse(state).success)
+const isDirty = computed(() => formRef.value?.dirty ?? false)
+
+const categoryItems = CATEGORIES.map(category => ({ label: getCategoryText(category), value: category }))
+
 function createInitialState(): Partial<CreateProductInput> {
   return {
     name: '',
@@ -18,17 +28,6 @@ function createInitialState(): Partial<CreateProductInput> {
     tags: [],
   }
 }
-
-const state = reactive(createInitialState())
-const view = ref<'form' | 'confirm-discard'>('form')
-const formRef = useTemplateRef('form')
-
-const isValid = computed(() => CreateProductSchema.safeParse(state).success)
-const isDirty = computed(() => formRef.value?.dirty ?? false)
-
-const categoryItems = CATEGORIES.map(category => ({ label: getCategoryText(category), value: category }))
-
-const submitting = ref(false)
 
 watch(open, (isOpen) => {
   if (!isOpen) {
