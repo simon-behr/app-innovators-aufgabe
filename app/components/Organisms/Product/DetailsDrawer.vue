@@ -4,14 +4,17 @@ import type { Product } from '#shared/schemas/Product'
 defineProps<{ open: boolean, product: Product | null }>()
 
 const emit = defineEmits<{ 'update:open': [value: boolean] }>()
+
+const isMobile = useIsMobile()
 </script>
 
 <template>
   <UDrawer
     v-if="product"
     :open="open"
-    direction="right"
-    class="min-w-md max-w-1/2"
+    :direction="isMobile ? 'bottom' : 'right'"
+    :snap-points="isMobile ? [1] : undefined"
+    :class="{ 'min-w-md max-w-1/2': !isMobile }"
     @update:open="emit('update:open', $event)"
   >
     <template #header>

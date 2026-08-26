@@ -4,6 +4,7 @@ import { type CreateProductInput, CreateProductSchema } from '#shared/schemas/Pr
 import { CATEGORIES } from '#shared/data/category'
 
 const toast = useToast()
+const isMobile = useIsMobile()
 
 const open = defineModel<boolean>('open', { required: true })
 const emit = defineEmits<{ created: [] }>()
@@ -82,6 +83,7 @@ async function onSubmit(event: FormSubmitEvent<CreateProductInput>) {
 <template>
   <UModal
     :open="open"
+    :fullscreen="isMobile"
     :title="view === 'form' ? 'Neues Produkt anlegen' : 'Änderungen verwerfen?'"
     @update:open="handleOpenUpdate"
   >

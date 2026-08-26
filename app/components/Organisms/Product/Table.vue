@@ -11,9 +11,9 @@ const emit = defineEmits<{ select: [product: Product], resetFilter: [], newProdu
 
 const columns: TableColumn<Product>[] = [
   {
-    // Rendering fully happens via the #name-cell slot
     accessorKey: 'name',
     header: 'Produkt',
+    meta: { class: { th: 'max-w-48', td: 'max-w-48' } },
   },
   {
     accessorKey: 'category',
@@ -68,7 +68,7 @@ function handleSelect(_event: Event, row: TableRow<Product>) {
       :columns="columns"
       :on-select="handleSelect"
       :class="{ 'cursor-pointer': products.length > 0 }"
-      :ui="{ base: 'table-fixed w-full' }"
+      :ui="{ base: 'w-full' }"
     >
       <template #name-cell="{ row }">
         <div class="flex flex-col gap-2 min-w-0">

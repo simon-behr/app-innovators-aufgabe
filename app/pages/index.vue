@@ -54,28 +54,29 @@ function onSelectProduct(product: Product) {
 
 <template>
   <UContainer class="py-8">
-    <UPageHeader description="Übersicht über alle Produkte im Lager.">
-      <template #headline>
-        <div class="flex w-full items-center justify-between">
+    <UPageHeader description="Übersicht über alle Produkte im Lager -">
+      <template #default>
+        <div class="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h1 class="text-default text-3xl">
             Produkt <span class="text-primary">Katalog</span>
           </h1>
           <UButton
             label="Neues Produkt anlegen"
             icon="i-lucide-plus"
+            class="w-full sm:w-auto justify-center"
             @click="createModalOpen = true"
           />
         </div>
       </template>
     </UPageHeader>
 
-    <div class="my-4 flex flex-wrap items-end gap-2">
+    <div class="my-4 flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-end">
       <UFormField label="Suche">
         <UInput
           v-model="searchText"
           icon="i-lucide-search"
           placeholder="Produkte durchsuchen…"
-          class="w-full min-w-80"
+          class="w-full sm:min-w-80"
         />
       </UFormField>
 
@@ -88,7 +89,7 @@ function onSelectProduct(product: Product) {
           :search-input="false"
           :clear="true"
           placeholder="Kategorie"
-          class="w-full sm:w-auto sm:max-w-52 min-w-40"
+          class="w-full sm:w-auto sm:max-w-52 sm:min-w-40"
         />
       </UFormField>
 
@@ -96,14 +97,14 @@ function onSelectProduct(product: Product) {
         <USelect
           v-model="availability"
           :items="availabilityItems"
-          class="w-full sm:w-auto sm:max-w-44 min-w-40"
+          class="w-full sm:w-auto sm:max-w-44 sm:min-w-40"
         />
       </UFormField>
 
       <UButton
         label="Zurücksetzen"
         icon="i-lucide-rotate-ccw"
-        class="ml-auto"
+        class="w-full sm:ml-auto sm:w-auto justify-center"
         color="neutral"
         variant="outline"
         @click="resetFilters"
