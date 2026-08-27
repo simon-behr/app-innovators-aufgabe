@@ -3,11 +3,13 @@ import { CATEGORIES } from '#shared/data/category'
 
 export const CategorySchema = z.enum(CATEGORIES, 'Kategorie ist erforderlich.')
 
+const MAX_PRICE_CENTS = 100_000_000
+
 export const ProductSchema = z.object({
   id: z.uuid(),
   name: z.string().trim().min(1, 'Name ist erforderlich.').max(120),
   description: z.string().trim().max(2000, 'Maximal 2000 Zeichen.').optional(),
-  price: z.number().int().min(0),
+  price: z.number().int().min(0).max(MAX_PRICE_CENTS),
   category: CategorySchema,
   stock: z.number('Bestand ist erforderlich.').int().min(0),
   tags: z.array(z.string().trim().toLowerCase().min(1)).default([]),
@@ -18,7 +20,9 @@ export const CreateProductSchema = ProductSchema.omit({
   id: true,
   createdAt: true,
 }).extend({
-  price: z.number('Preis ist erforderlich.').min(0, 'Preis darf nicht negativ sein'),
+  price: z.number('Preis ist erforderlich.')
+    .min(0, 'Preis darf nicht negativ sein')
+    .max(MAX_PRICE_CENTS / 100, 'Preis darf maximal 1.000.000 € betragen.'),
 }).transform(({ price, ...rest }) => ({
   ...rest,
   price: Math.round(price * 100),

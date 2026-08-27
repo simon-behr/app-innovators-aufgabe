@@ -60,8 +60,9 @@ npm run test
   plus Styling, kein eigenes Design-System nötig.
 - **`@faker-js/faker`** — realistische, deterministische Demo-Daten für
   die 200 Seed-Produkte.
-- **`vitest`, `@vue/test-utils`** — Standard-Test-Stack für
+- **`vitest`, `@nuxt/test-utils`** — Standard-Test-Stack für
   Nuxt-Projekte.
+- **`@vueuse/core`** — bietet praktische Composables (debounce, breakpoints)
 - **`vue-tsc`** — Typprüfung, sowohl über `npm run typecheck` als auch live
   während `npm run dev` (`typescript.typeCheck: true` in `nuxt.config.ts`).
 

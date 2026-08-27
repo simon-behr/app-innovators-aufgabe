@@ -134,7 +134,7 @@ async function onSubmit(event: FormSubmitEvent<CreateProductInput>) {
                 :decrement="false"
                 locale="de-DE"
                 :format-options="{ style: 'currency', currency: 'EUR' }"
-                placeholder="0,00 €"
+                placeholder="z. B. 19,99 €"
                 class="w-full"
               />
             </UFormField>
@@ -149,7 +149,7 @@ async function onSubmit(event: FormSubmitEvent<CreateProductInput>) {
                 :min="0"
                 :step="1"
                 :format-options="{ maximumFractionDigits: 0 }"
-                placeholder="0"
+                placeholder="z. B. 25"
                 class="w-full"
               />
             </UFormField>
